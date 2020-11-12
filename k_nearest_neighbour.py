@@ -2,7 +2,7 @@ import numpy as np
 
 # Load data set and code labels as 0 = ’NO’, 1 = ’DH’, 2 = ’SL’
 labels = [b'NO', b'DH', b'SL']
-data = np.loadtxt('C:/Users/graha/Documents/1. Studies/ENGG/Assignment 2/Spine/column_3C.dat', converters={6: lambda s: labels.index(s)})
+data = np.loadtxt('...column_3C.dat', converters={6: lambda s: labels.index(s)})
 
 # Separate features from labels
 x = data[:,0:6]
