@@ -1,8 +1,8 @@
 import numpy as np
-
+from Directories import data
 # Load data set and code labels as 0 = ’NO’, 1 = ’DH’, 2 = ’SL’
 labels = [b'NO', b'DH', b'SL']
-data = np.loadtxt('...column_3C.dat', converters={6: lambda s: labels.index(s)})
+data = np.loadtxt(data, converters={6: lambda s: labels.index(s)})
 
 # Separate features from labels
 x = data[:,0:6]
@@ -39,7 +39,7 @@ test_predictions = [NN_classifier(testx[i,]) for i in range(len(testy))]
 print(test_predictions)
 
 
-###Putting them all together, with the L1 Norm, and outputting an array of classifications
+###Putting them all together, with L1 & L2 Norm, and outputting an array of classifications
 def NN_LN(trainx, trainy, testx):
     L1IndexArray = []
     L2IndexArray = []
@@ -55,7 +55,23 @@ def NN_LN(trainx, trainy, testx):
         L2IndexArray.append(L2Label)
     return L1IndexArray, L2IndexArray
 
-testy = NN_LN(trainx, trainy, testx)
+testy_L1, testy_L2 = NN_LN(trainx, trainy, testx)
 
 #L2 matches our baseline
-print(testy)
+print(testy_L1)
+print(testy_L2)
+
+###constructing a confusion matrix in Numpy
+def confusion(testy, testy_fit):
+    Categories = np.unique(testy)
+    CMatrix = np.zeros((len(Categories), len(Categories)))
+    for x in range(len(Categories)):
+        for i in range(len(Categories)):
+                CMatrix[x, i] = np.sum((testy == Categories[x]) & (testy_fit == Categories[i]))
+    return CMatrix
+
+ConfusionMatrixL1 = confusion(testy, testy_L1)
+ConfusionMatrixL2 = confusion(testy, testy_L2)
+
+print(ConfusionMatrixL1)
+print(ConfusionMatrixL2)
