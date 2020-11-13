@@ -75,3 +75,10 @@ ConfusionMatrixL2 = confusion(testy, testy_L2)
 
 print(ConfusionMatrixL1)
 print(ConfusionMatrixL2)
+
+###Interpreting the confusion matrix
+
+#testy data consists of true labels and testy_L1 and testy_L2 are predicted labels. In testy, there are 20 NP classifications and, for 
+#example, in testy_L1 #there are 26 NP classifications. We can see that NP is the most misclassified label in our L1 prediction set. 
+#We can also see that both the models correctly predicted the SP classifier. Lastly, we can see that L1 and L2 differ in classification
+#of a single test point. L1 (incorrectly) classifies an extra DH while L2 (correctly) classifies an extra NP. 
